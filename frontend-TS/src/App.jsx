@@ -4,6 +4,7 @@ import 'primereact/resources/themes/tailwind-light/theme.css'
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import './styles/settings.css';
+
 import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import { store } from './store/store';

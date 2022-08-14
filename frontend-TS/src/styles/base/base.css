@@ -53,3 +53,8 @@ li {
   border-radius: 0.5rem;
   padding-top: 20px;
 }
+
+.grid__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

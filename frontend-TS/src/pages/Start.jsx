@@ -3,9 +3,13 @@ import { Button } from 'primereact/button';
 import { Card } from "primereact/card";
 
 import { SplitButton } from 'primereact/splitbutton';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Start = () => {
+
+	const navigate = useNavigate();
+
 	const initialCard = [
 		{
 			id: 1,
@@ -59,6 +63,17 @@ export const Start = () => {
 		{
 			label: 'Evaluar Proyecto',
 			icon: 'pi pi-chart-bar',
+			command: () => {
+				navigate("/evaluar-proyecto")
+			}
+
+		},
+		{
+			label: 'Periodo de recuperacion',
+			icon: 'pi pi-calendar',
+			command: () => {
+				navigate("/periodo-recuperacion")
+			}
 
 		},
 		// {
@@ -139,7 +154,7 @@ export const Start = () => {
 
 			<div className="main">
 				<div className="space-left__button">
-					<SplitButton label="Crear Simulacion" className="btn  p-button-success p-button-raised" model={items} icon="pi pi-plus" />
+					<SplitButton label="Crear Simulación" className="btn  p-button-success p-button-raised" model={items} icon="pi pi-plus" />
 				</div>
 				<div className="container">
 					{

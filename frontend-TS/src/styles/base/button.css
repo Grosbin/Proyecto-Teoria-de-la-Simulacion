@@ -9,3 +9,12 @@
   right: 70px;
   z-index: 1;
 }
+
+.button__evalute-project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 245px;
+  padding-top: 10px;
+}
