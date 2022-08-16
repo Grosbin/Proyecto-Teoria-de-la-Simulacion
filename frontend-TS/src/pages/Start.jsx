@@ -13,49 +13,31 @@ export const Start = () => {
 	const initialCard = [
 		{
 			id: 1,
-			name: 'Primera Simulacion',
+			name: 'Super Mercado Olbin',
 			description: 'Esta es la primera simulacion',
 		},
 		{
 			id: 2,
-			name: 'Segunda Simulacion',
+			name: 'Cyber Grosbin',
 			description: 'Esta es la Segunda simulacion',
 		},
 		{
 			id: 3,
-			name: 'Tercera Simulacion',
+			name: 'Cafeteria Rafael',
 			description: 'Esta es la tercera simulacion',
 		},
 		{
 			id: 4,
-			name: 'Primera Simulacion',
-			description: 'Esta es la primera simulacion',
+			name: 'Libreria Estefania',
+			description: 'Esta es la cuarta simulacion',
 		},
 		{
 			id: 5,
-			name: 'Segunda Simulacion',
-			description: 'Esta es la Segunda simulacion',
+			name: 'Accesorios Marleny',
+			description: 'Esta es la cuarta simulacion',
 		},
-		{
-			id: 6,
-			name: 'Tercera Simulacion',
-			description: 'Esta es la tercera simulacion',
-		},
-		{
-			id: 7,
-			name: 'Primera Simulacion',
-			description: 'Esta es la primera simulacion',
-		},
-		{
-			id: 8,
-			name: 'Segunda Simulacion',
-			description: 'Esta es la Segunda simulacion',
-		},
-		{
-			id: 9,
-			name: 'Tercera Simulacion',
-			description: 'Esta es la tercera simulacion',
-		}
+
+
 
 	]
 
@@ -162,11 +144,11 @@ export const Start = () => {
 							<div className="card__container" key={item.id} style={{ textAlign: 'center' }}>
 								<Card
 									subTitle={item.name}
-									header={item.description}
+									// header={item.description}
 									footer={footerCard(item)}
 									className="justify-content-center align-content-center cursor-pointer"
 								>
-									<h5>Esta es una simulacion</h5>
+									<h5>{item.description}</h5>
 									{/* <Button className="btn btn-primary" label={'Entrar'} /> */}
 								</Card>
 							</div>

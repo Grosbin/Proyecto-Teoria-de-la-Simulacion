@@ -47,7 +47,7 @@ export const Table = ({ item = 0 }) => {
 	return (
 		<div>
 			<div className="card">
-				<h5>Flujo neto de efectivo</h5>
+				{/* <h5>Flujo neto de efectivo</h5> */}
 				<DataTable value={item} scrollable scrollHeight="400px" virtualScrollerOptions={{ itemSize: 46 }}>
 					<Column field="year" header="Año" style={{ minWidth: '200px' }}></Column>
 
