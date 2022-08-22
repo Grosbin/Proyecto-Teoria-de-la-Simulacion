@@ -3,46 +3,10 @@
 import React, { useState } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Skeleton } from 'primereact/skeleton';
+
 
 
 export const Table = ({ item = 0 }) => {
-
-
-	const itemTable = [
-		{
-			id: 1,
-			name: 'Audi',
-			year: '1992',
-			color: 'Black',
-			vin: 'dsad231ff'
-		},
-		{
-			id: 2,
-			name: 'Audi',
-			year: '1992',
-			color: 'Black',
-			vin: 'dsad231ff'
-		},
-		{
-			id: 3,
-			name: 'Audi',
-			year: '1992',
-			color: 'Black',
-			vin: 'dsad231ff'
-		},
-		{
-			id: 4,
-			name: 'Audi',
-			year: '1992',
-			color: 'Black',
-			vin: 'dsad231ff'
-		},
-
-	]
-	console.log(item, 'Estoy en el componente Table')
-
-
 
 	return (
 		<div>

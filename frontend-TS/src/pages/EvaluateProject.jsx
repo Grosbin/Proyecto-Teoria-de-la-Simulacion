@@ -9,12 +9,19 @@ import { getCPP } from "../helpers/getCPP";
 import { Card } from 'primereact/card';
 import { getVPF } from "../helpers/getVPF";
 import { getRecoveryperiod } from "../helpers/getRecoveryPeriod";
+import { Dialog } from 'primereact/dialog';
+import { startAddSimulation } from "../../actions/simulation";
+import { useDispatch } from "react-redux";
 
 
 export const EvaluateProject = () => {
 
+	const dispatch = useDispatch();
+
+	const [name, setName] = useState('');
+	const [description, setDescription] = useState('');
 	const [investment, setInvestment] = useState("");
-	const [own_resources, setOwnResources] = useState("");
+	const [ownResources, setOwnResources] = useState("");
 	const [financing, setFinancing] = useState("");
 	const [live, setLive] = useState('');
 	const [rateOwnResources, setRateOwnResources] = useState('');
@@ -31,11 +38,17 @@ export const EvaluateProject = () => {
 
 	const [dataFNE, setDataFNE] = useState([]);
 
+	const [displayModal, setDisplayModal] = useState(false);
 
 
-	const handleStartSimulation = (e) => {
-		e.preventDefault();
-		const data1 = parseInt(own_resources);
+	const onHide = () => {
+		setDisplayModal(false)
+	}
+
+
+	const handleStartSimulation = () => {
+		// e.preventDefault();
+		const data1 = parseInt(ownResources);
 		const data2 = parseInt(financing);
 		const data3 = parseInt(investment);
 		const data4 = parseInt(rateOwnResources);
@@ -48,6 +61,7 @@ export const EvaluateProject = () => {
 		setCpp(resulCPP);
 		setVPF(resulVPF);
 		setPR(resulPR);
+		console.log('Se ejecucuta simulation estar')
 
 		setInitSimulate(true);
 		// console.log(vpf, ' Este es el vpf')
@@ -58,8 +72,12 @@ export const EvaluateProject = () => {
 	const max = investment;
 	const randomFNE = getRandomFNE(min, max, live);
 
+	console.log(initSimulate)
+	console.log(name);
+
 	useEffect(() => {
 		setDataFNE(randomFNE);
+		console.log('Primer useEffect ejecutado')
 	}, [live]);
 
 
@@ -72,15 +90,17 @@ export const EvaluateProject = () => {
 			setAnim(false);
 			setTableFNE(false);
 		}
-		if (own_resources) {
+		if (ownResources) {
 			setDisabledLive(false);
-			setFinancing(investment - own_resources);
+			setFinancing(investment - ownResources);
 		}
 		if (investment) {
 			setDisabled(false);
 		}
 
-	}, [live, own_resources, investment, financing, dataFNE]);
+		console.log('Segundo useEffect ejecutado');
+
+	}, [live, ownResources, investment, financing, dataFNE]);
 
 	const animation = () => {
 		setTimeout(() => {
@@ -105,12 +125,82 @@ export const EvaluateProject = () => {
 		)
 	}
 
+	const handleSaveSimulation = () => {
+		console.log('Simulacion guardada');
+		const dataFilter = {
+			name: name,
+			description: description,
+			investment: investment,
+			financing: financing,
+			own_resources: ownResources,
+			rate_own_resources: rateOwnResources,
+			rate_financing: rateFinancing,
+			resul_cpp: cpp,
+			resul_vpf: vpf,
+			resul_pr: pr,
+			random_fne: dataFNE,
+			live: live,
+		}
+		dispatch(startAddSimulation(dataFilter));
+		setDisplayModal(false)
+	}
+
+	const footer = () => {
+		return (
+			<div>
+				<Button label="No" icon="pi pi-times" onClick={() => setDisplayModal(false)} className="p-button-text" />
+				<Button label="Si" icon="pi pi-check" onClick={() => handleSaveSimulation()} autoFocus className="p-button-success" />
+			</div>
+		);
+	}
+
 
 	return (
+
 		<div className="main">
+			<Dialog header="Desea Guardar la Simulación?" visible={displayModal} style={{ width: '50vw' }} footer={footer} onHide={onHide}>
+				<div>
+					<Player
+						autoplay
+						loop
+						src="./json/money.json"
+						style={{ height: '200px', width: '200px' }}
+					>
+					</Player>
+				</div>
+				<div className="">
+					<span className="p-float-label">
+						<InputText
+							id="name"
+							name="name"
+
+							style={{ width: '100%' }}
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+
+						<label htmlFor="name">Nombre</label>
+					</span>
+				</div>
+				<div className="" style={{ marginTop: '10px' }}>
+					<span className="p-float-label">
+						<InputText
+							id="description"
+							name="description"
+
+							value={description}
+							style={{ width: '100%' }}
+							onChange={(e) => setDescription(e.target.value)}
+						/>
+
+						<label htmlFor="descrption">Descripción</label>
+					</span>
+				</div>
+			</Dialog>
+
 			<div className="grid__container" style={{ marginTop: "70px" }}>
 				<div>
-					<form onSubmit={handleStartSimulation} style={{ marginBottom: "10px" }}>
+					<div style={{ marginBottom: "10px" }}>
 						<div className="">
 							<span className="p-float-label">
 								<InputText
@@ -129,7 +219,7 @@ export const EvaluateProject = () => {
 								<InputText
 									id="own_resources"
 									name="own_resources"
-									value={own_resources}
+									value={ownResources}
 									keyfilter={/[0-9]/}
 									disabled={disabled}
 									onChange={(e) => setOwnResources(e.target.value)}
@@ -194,17 +284,18 @@ export const EvaluateProject = () => {
 							<Button
 								label="Iniciar simulación"
 								className="p-button-primary"
-								type="submit"
-								disabled={anim}
+								disabled={!tableFNE}
 								onClick={handleStartSimulation}
 
 							/>
-							{
-								initSimulate && <Button label="Guardar simulación" className="p-button-success" />
-							}
 
+							{
+								// initSimulate && <Button label="Guardar simulación" className="p-button-success" />
+								initSimulate && <Button label="Guardar simulación" className="p-button-success" icon="pi pi-external-link" onClick={() => setDisplayModal(true)} />
+							}
 						</div>
-					</form>
+					</div>
+					{/* <Button type="text" label="Guardar simulación" className="p-button-success" icon="pi pi-external-link" onClick={() => setDisplayModal(true)} /> */}
 				</div>
 
 				<div style={{ textAlign: 'center' }}>
@@ -213,18 +304,6 @@ export const EvaluateProject = () => {
 						anim ? animation() : tableFNE && <Table item={dataFNE} />
 					}
 				</div>
-
-
-				{/* <div>
-					<Card title="CCP" subTitle="Costo de Capital Ponderado">
-						{cpp} %
-					</Card>
-				</div>
-				<div>
-					<Card title="VPF" subTitle="Valor del Precio en el Futuro">
-						L {vpf}
-					</Card>
-				</div> */}
 			</div>
 			{
 				initSimulate && (
@@ -249,9 +328,7 @@ export const EvaluateProject = () => {
 								</Card>
 							</div>
 							<div>
-								{/* <Card title="VPF" subTitle="Valor del Precio en el Futuro">
-						L {vpf}
-					</Card> */}
+
 							</div>
 						</div>
 

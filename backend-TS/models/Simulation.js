@@ -4,7 +4,7 @@ const { Schema, model } = require('mongoose');
 const SimulationSchema = new Schema({
 	name: {
 		type: String,
-		// required: true
+		required: true
 	},
 	description: {
 		type: String,
@@ -12,35 +12,43 @@ const SimulationSchema = new Schema({
 	},
 	investment: {
 		type: String,
-		// required: true
+		required: true
 	},
 	own_resources: {
 		type: String,
-		// required: true
+		required: true
+	},
+	financing: {
+		type: String,
+		required: true
 	},
 	rate_own_resources: {
 		type: String,
-		// required: true
+		required: true
 	},
 	rate_financing: {
 		type: String,
-		// required: true
+		required: true
 	},
 	resul_cpp: {
 		type: String,
-		// required: true
+		required: true
 	},
 	resul_vpf: {
 		type: String,
-		// required: true
+		required: true
 	},
 	resul_pr: {
 		type: String,
-		// required: true
+		required: true
 	},
-	rendom_fne: {
+	live: {
+		type: String,
+		required: true
+	},
+	random_fne: {
 		type: Array,
-		default: []
+		// default: []
 
 	}
 

@@ -5,7 +5,7 @@ const Simulation = require('../models/Simulation');
 
 const setSimulation = async (req, res = response) => {
 
-	console.log(req.body);
+	// console.log(req.body);
 	const simulation = new Simulation(req.body)
 
 	try {
