@@ -20,7 +20,7 @@ Ingresar a la carpeta ./frontend-TS
 
 1- necesita instalar todos los paquetes necesarios
 ```
-npm i
+yarn i
 ```
 2- Iniciar la ejecución del frontend
 ```
