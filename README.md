@@ -1,5 +1,15 @@
 # Proyecto-Teoria-de-la-Simulacion
 
 # Ejecución del backend
-Ingresar al ./backent-ts
-ejecutar el comando npm run dev
+Ingresar a ./backent-ts
+
+Comprobar si tiene instalado nodemon en caso de no tener lo instalado ejecute este comando
+```
+npm i nodemon
+
+```
+ejecutar el comando.
+```
+npm run dev
+```
+
